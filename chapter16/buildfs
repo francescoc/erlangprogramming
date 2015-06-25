@@ -1,0 +1,1 @@
+gcc -o fac -I/usr/local/lib/erlang/lib/erl_interface-3.5.9/include -L/usr/local/lib/erlang/lib/erl_interface-3.5.9/lib fac.c -lerl_interface -lei 

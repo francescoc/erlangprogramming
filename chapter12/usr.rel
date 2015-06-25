@@ -1,0 +1,12 @@
+%% Code from 
+%%   Erlang Programming
+%%   Francecso Cesarini and Simon Thompson
+%%   O'Reilly, 2008
+%%   http://oreilly.com/catalog/9780596518189/
+%%   http://www.erlangprogramming.org/
+%%   (c) Francesco Cesarini and Simon Thompson
+
+{release, {"Mobile User Database","R1"}, {erts, "5.6.2"},
+ [{kernel,"2.12.2"},
+  {stdlib,"1.15.2"},
+  {usr,"1.0"}]}

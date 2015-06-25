@@ -1,0 +1,14 @@
+@author Francesco Cesarini <francesco@erlang-consulting.com>
+@author Simon Thompson [http://www.cs.kent.ac.uk/~sjt/]
+@reference <a href="http://oreilly.com/catalog/9780596518189/">Erlang Programming</a>,
+  <em> Francesco Cesarini and Simon Thompson</em>,
+  O'Reilly, 2009.
+@copyright 2009 Francesco Cesarini and Simon Thompson
+@headerfile "usr.hrl"
+@doc <p>Database for subscribers to a mobile phone network. 
+This implementation illustrates ETS and DETS tables, using these to 
+implement the back end of the system. The example appears in Chapter 8 of our book.</p>
+<p>The system is re-implemented as an OTP behavior in Chapter 12 of the book.</p>
+<p>Users in the system are represented by the `usr' record, given in the `usr.hrl' file. </p>
+@headerfile "usr.hrl"
+

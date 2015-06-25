@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Module usr</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module usr</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#types">Data Types</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul> API and server code for the  mobile subscriber database.
+<p>Copyright © 2009 Francseco Cesarini and Simon Thompson</p>
+
+<p><b>Authors:</b> Francseco Cesarini (<a href="mailto:support@erlang-consulting.com"><tt>support@erlang-consulting.com</tt></a>), Simon Thompson (<a href="mailto:s.j.thompson@kent.ac.uk"><tt>s.j.thompson@kent.ac.uk</tt></a>).</p>
+<p><b>References</b><ul><li>Erlang Programming,
+   <em> Francseco Cesarini and Simon Thompson</em>,
+   O'Reilly, 2009.</li></ul></p>
+
+<h2><a name="description">Description</a></h2> API and server code for the  mobile subscriber database. The functions exported
+  by the module fall into three classes:
+  <h4><a name="System_start_and_stop">System start and stop</a></h4>
+  <a href="#start-0"><code>start/0</code></a>,
+  <a href="#start-1"><code>start/1</code></a>,
+  <a href="#stop-0"><code>stop/0</code></a>
+  <h4><a name="Customer_Service_API">Customer Service API</a></h4>
+  <a href="#add_usr-3"><code>add_usr/3</code></a>,
+  <a href="#delete_usr-1"><code>delete_usr/1</code></a>,
+  <a href="#set_service-3"><code>set_service/3</code></a>,
+  <a href="#set_status-2"><code>set_status/2</code></a>,
+  <a href="#delete_disabled-0"><code>delete_disabled/0</code></a>,
+  <a href="#lookup_id-1"><code>lookup_id/1</code></a>
+  <h4><a name="Service_API">Service API</a></h4>
+  <a href="#lookup_msisdn-1"><code>lookup_msisdn/1</code></a>,
+  <a href="#service_flag-2"><code>service_flag/2</code></a>
+<h2><a name="types">Data Types</a></h2>
+
+<h3 class="typedecl"><a name="type-instTime">instTime()</a></h3>
+<p><tt>instTime() = instance | timeout</tt></p>
+<p>Two different errors.</p>
+
+<h3 class="typedecl"><a name="type-plan">plan()</a></h3>
+<p><tt>plan() = prepay | postpay</tt></p>
+<p>The two payment types for mobile subscribers.</p>
+
+<h3 class="typedecl"><a name="type-service">service()</a></h3>
+<p><tt>service() = atom()</tt></p>
+<p>Services are specified by atoms, including
+  (but not limited to) <code>data</code>, <code>lbs</code> and <code>sms</code>. <code>Data</code> confirms the user
+  has subscribed to a data plan, <code>sms</code> allows the user to send and receive
+  premium rated smses, while <code>lbs</code> would allow third parties to execute
+  location lookups on this particular user.</p>
+
+<h3 class="typedecl"><a name="type-status">status()</a></h3>
+<p><tt>status() = enabled | disabled</tt></p>
+<p>The status of a customer can be enabled
+  or disabled.</p>
+
+<h3 class="typedecl"><a name="type-usr">usr()</a></h3>
+<p><tt>usr() = #usr{msisdn = integer(), id = integer(), status = <a href="#type-status">status()</a>, plan = <a href="#type-plan">plan()</a>, services = [<a href="#type-service">service()</a>]}</tt></p>
+<p>Record for users. The default value of <code>status</code> is <code>enabled</code> and of <code>services</code> is <code>[]</code>.</p>
+
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#add_usr-3">add_usr/3</a></td><td>Add a user with specified phone number, customer id and plan type.</td></tr>
+<tr><td valign="top"><a href="#delete_disabled-0">delete_disabled/0</a></td><td>Traverses the table and deletes all users whose status is set to <code>disabled</code>.</td></tr>
+<tr><td valign="top"><a href="#delete_usr-1">delete_usr/1</a></td><td>Delete a user and all their associated entries.</td></tr>
+<tr><td valign="top"><a href="#lookup_id-1">lookup_id/1</a></td><td>Lookup a user based on their CustId and return a record of type <code>usr</code>.</td></tr>
+<tr><td valign="top"><a href="#lookup_msisdn-1">lookup_msisdn/1</a></td><td>Lookup the <code>usr</code> record for a customer, specified by a <code>PhoneNo</code>.</td></tr>
+<tr><td valign="top"><a href="#service_flag-2">service_flag/2</a></td><td>This function will check if a user exists and has an enabled status.</td></tr>
+<tr><td valign="top"><a href="#set_service-3">set_service/3</a></td><td>Set or unset a particular service for a particular customer.</td></tr>
+<tr><td valign="top"><a href="#set_status-2">set_status/2</a></td><td>Set the status of a customer to be enabled or disabled.</td></tr>
+<tr><td valign="top"><a href="#start-0">start/0</a></td><td>Start the system with the default filename.</td></tr>
+<tr><td valign="top"><a href="#start-1">start/1</a></td><td>Start the system with the given <code>Filename</code>.</td></tr>
+<tr><td valign="top"><a href="#stop-0">stop/0</a></td><td>Stop the system.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="add_usr-3">add_usr/3</a></h3>
+<div class="spec">
+<p><tt>add_usr(PhoneNum::integer(), CustId::integer(), Plan::<a href="#type-plan">plan()</a>) -&gt; ok | {error, <a href="#type-instTime">instTime()</a>}</tt></p>
+</div><p>Add a user with specified phone number, customer id and plan type.
+  Returns <code>ok</code> or an <code>error</code> tuple.</p>
+
+<h3 class="function"><a name="delete_disabled-0">delete_disabled/0</a></h3>
+<div class="spec">
+<p><tt>delete_disabled() -&gt; ok | {error, timeout}</tt></p>
+</div><p>Traverses the table and deletes all users whose status is set to <code>disabled</code>.</p>
+
+<h3 class="function"><a name="delete_usr-1">delete_usr/1</a></h3>
+<div class="spec">
+<p><tt>delete_usr(CustId) -&gt; any()</tt></p>
+</div><p>Delete a user and all their associated entries.</p>
+
+<h3 class="function"><a name="lookup_id-1">lookup_id/1</a></h3>
+<div class="spec">
+<p><tt>lookup_id(CustId::integer()) -&gt; {ok, #usr{}} | {error, instance}</tt></p>
+</div><p>Lookup a user based on their CustId and return a record of type <code>usr</code>. If the
+  customer does not exist, an <code>error</code> tuple is returned.</p>
+
+<h3 class="function"><a name="lookup_msisdn-1">lookup_msisdn/1</a></h3>
+<div class="spec">
+<p><tt>lookup_msisdn(PhoneNo::integer()) -&gt; {ok, #usr{}} | {error, instance}</tt></p>
+</div><p>Lookup the <code>usr</code> record for a customer, specified by a <code>PhoneNo</code>.
+  If successful return an <code>ok</code> tuple with the record; otherwise
+  return an <code>error</code> tuple.</p>
+
+<h3 class="function"><a name="service_flag-2">service_flag/2</a></h3>
+<div class="spec">
+<p><tt>service_flag(PhoneNo::integer(), Service::<a href="#type-service">service()</a>) -&gt; bool() | {error, instance | disabled}</tt></p>
+</div><p>This function will check if a user exists and has an enabled status. If so, it
+   will traverse the list of services to determine if the subscriber is allowed to use
+  this Service in a particular request. This is a variant of the lookup_msisdn/1
+  function, where logical checks are done in this module.</p>
+
+<h3 class="function"><a name="set_service-3">set_service/3</a></h3>
+<div class="spec">
+<p><tt>set_service(CustId::integer(), Service::<a href="#type-service">service()</a>, Flag::bool()) -&gt; ok | {error, <a href="#type-instTime">instTime()</a>}</tt></p>
+</div><p>Set or unset a particular service for a particular customer. A <code>true</code> Flag
+  sets the service and <code>false</code> unsets it.</p>
+
+<h3 class="function"><a name="set_status-2">set_status/2</a></h3>
+<div class="spec">
+<p><tt>set_status(CustId::integer(), Status::<a href="#type-status">status()</a>) -&gt; ok | {error, <a href="#type-instTime">instTime()</a>}</tt></p>
+</div><p>Set the status of a customer to be enabled or disabled.</p>
+
+<h3 class="function"><a name="start-0">start/0</a></h3>
+<div class="spec">
+<p><tt>start() -&gt; ok | {error, starting}</tt></p>
+</div><p>Start the system with the default filename.
+  Returns <code>ok</code> or an <code>error</code> tuple.</p>
+
+<h3 class="function"><a name="start-1">start/1</a></h3>
+<div class="spec">
+<p><tt>start(FileName::string()) -&gt; ok | {error, starting}</tt></p>
+</div><p>Start the system with the given <code>Filename</code>.
+  Returns <code>ok</code> or an <code>error</code> tuple.</p>
+
+<h3 class="function"><a name="stop-0">stop/0</a></h3>
+<div class="spec">
+<p><tt>stop() -&gt; ok | {error, string()}</tt></p>
+</div><p>Stop the system.
+  Returns <code>ok</code> or an <code>error</code> tuple, containing the reason for failure.</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, Feb 28 2009, 12:50:24.</i></p>
+</body>
+</html>

@@ -1,0 +1,1 @@
+".:/usr/local/lib/erlang/lib/jinterface-1.4.2/priv/OtpErlang.jar"

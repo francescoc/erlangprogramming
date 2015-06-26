@@ -67,4 +67,8 @@ allocate({[Freq|Free], Allocated}, Pid) ->
 
 deallocate({Free, Allocated}, Freq) ->
   NewAllocated=lists:keydelete(Freq, 1, Allocated),
-  {[Freq|Free],  NewAllocated}.
+  case NewAllocated of
+    Allocated -> {Free,  Allocated};
+    _         -> {[Freq|Free],  NewAllocated}
+  end.
+

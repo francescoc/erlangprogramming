@@ -58,9 +58,9 @@ delete_usr(CustId) ->
 %% either `ok' or an `error' tuple with a reason.
 
 delete_usr(PhoneNo, CustId) ->
-    dets:delete(subDisk, PhoneNo),
-    ets:delete(subRam, PhoneNo),
-    ets:delete(subIndex, CustId),
+    dets:delete(usrDisk, PhoneNo),
+    ets:delete(usrRam, PhoneNo),
+    ets:delete(usrIndex, CustId),
     ok.
 
 

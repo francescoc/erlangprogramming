@@ -161,7 +161,7 @@ sum([Head | Tail]) -> Head + sum(Tail).
 len([]) -> 0;
 len([_ | Tail]) -> 1 + len(Tail).
 
-% Is the first argument a memeer of the second argument (a list)?
+% Is the first argument a member of the second argument (a list)?
 
 member(_, [])      -> false;
 member(H, [H | _]) -> true;
